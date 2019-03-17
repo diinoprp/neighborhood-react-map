@@ -6,8 +6,11 @@ class ListItem extends Component {
 
   render() {
     return (
-      <li>
-        <div>{this.props.name}</div>
+      <li onClick={() => this.props.handleListItemClick(this.props)}>
+        <div>
+          <img src={this.props.categories[0].icon.prefix + "32" + this.props.categories[0].icon.suffix} alt={this.props.categories[0].name} />
+          {this.props.name}
+        </div>
         <div className="venueAddress">{this.props.location.address}</div>
       </li>
     )

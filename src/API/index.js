@@ -27,7 +27,8 @@ class Helper {
 
   static headers() {
     return {
-      Accept: "application/json"
+      Accept: "application/json",
+      "Accept-Language": "en"
     };
   }
 

@@ -16,11 +16,12 @@ class AppMenu extends Component {
   handleMenuClick() {
     this.setState({menuOpen: !this.state.menuOpen})
   }
+
   render() {
     return (
       <div>
         <Menu className="venueList" isOpen={this.state.menuOpen}>
-          <VenueList {...this.props}/>
+          <VenueList {...this.props} handleListItemClick={this.props.handleListItemClick}/>
         </Menu>
         <Navbar bg="dark" style={{ zIndex: 1 }}>
           <HamburgerButton

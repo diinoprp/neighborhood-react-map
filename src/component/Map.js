@@ -14,7 +14,7 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
           return (<Marker 
             key={index} 
             position={{ lat: marker.lat, lng: marker.lng }} 
-            //onClick={() => props.handleMarkerClick(marker)}
+            onClick={() => props.handleMarkerClick(marker)}
           >
             {marker.isOpen &&
               venueInfo.bestPhoto && (

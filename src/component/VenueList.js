@@ -41,7 +41,13 @@ class VenueList extends Component {
           aria-label="Filter Venues"
         />
         <ul className="places-list">
-          {this.props.venues && this.props.venues.map((venue, idx) => <ListItem key={idx} {...venue} />)}
+          {this.props.venues && this.props.venues.map((venue, idx) => 
+            <ListItem 
+              key={idx} 
+              {...venue} 
+              handleListItemClick={this.props.handleListItemClick}
+            />
+          )}
         </ul>
       </div>
     )

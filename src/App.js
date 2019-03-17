@@ -41,8 +41,13 @@ class App extends Component {
 
     SquareAPI.getVenueDetails(marker.id).then(res => {
       const newVenue = Object.assign(venue, res.response.venue);
-      this.setState({ venues: Object.assign(this.state.venues, newVenue) });
+      this.setState({ venues: Object.assign(this.state.venues, newVenue) },console.log(this.state.venues));
     });
+  }
+
+  handleListItemClick = venue => {
+    const marker = this.state.markers.find(marker => marker.id === venue.id);
+    this.handleMarkerClick(marker);
   }
 
   componentDidMount() {
@@ -70,7 +75,7 @@ class App extends Component {
     return (
       <ErrorBoundary FallbackComponent={FallbackComponent}>
         <div className="App">
-          <AppMenu {...this.state}/>
+          <AppMenu {...this.state} handleListItemClick={this.handleListItemClick}/>
           <Map {...this.state}
           handleMarkerClick={this.handleMarkerClick} />
         </div>
