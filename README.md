@@ -33,6 +33,6 @@ This is the final project for the Udacity Front End Web Developer Nanodegree. It
  The default create-react-app **service worker** only works on the production build. To build the project, we must do the following steps:
  
 ```
-npm build run build
+npm run build
 serve -s build
 ```
