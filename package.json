@@ -12,7 +12,8 @@
     "react-error-boundary": "^1.2.3",
     "react-google-maps": "^9.4.5",
     "react-hamburger-button": "^0.0.1",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "react-svg": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
