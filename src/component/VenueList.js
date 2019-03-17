@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ListItem from './ListItem'
+import ListItem from './ListItem';
+import PropTypes from 'prop-types';
 
 class VenueList extends Component {
 /* Represents the List of venues that is displayed on the sidebar */
@@ -21,3 +22,8 @@ class VenueList extends Component {
 }
 
 export default VenueList;
+
+VenueList.propTypes = {
+  filterVenues: PropTypes.func.isRequired,
+  handleListItemClick: PropTypes.func.isRequired
+}

@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import poweredByFourSquare from '../foursquareSVG.svg';
 import { Image } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const MyMapComponent = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={8}
     zoom={props.zoom}
+    defaultCenter={{lat: -22.910289, lng: -43.173356}}
     center={{ lat: parseFloat(props.center.lat), lng: parseFloat(props.center.lng) }}
     onClick={() => props.onMapClick()}
   >
@@ -60,7 +62,18 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
         );
       })}
   </GoogleMap>
-))
+));
+
+
+MyMapComponent.propTypes = {
+  zoom: PropTypes.number,
+  center: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired
+  }),
+  onClick: PropTypes.func
+}
+
 
 export default class Map extends Component {
   render() {

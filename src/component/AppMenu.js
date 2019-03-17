@@ -3,6 +3,7 @@ import { slide as Menu } from 'react-burger-menu'
 import { Navbar } from 'react-bootstrap';
 import { HamburgerButton } from 'react-hamburger-button';
 import VenueList from './VenueList';
+import PropTypes from 'prop-types';
 
 class AppMenu extends Component {
   /*
@@ -76,6 +77,7 @@ class AppMenu extends Component {
             strokeWidth={2}
             color='white'
             onClick={() => this.handleMenuClick()}
+            style={{tabindex:'0'}}
           />
         </Navbar>
 
@@ -85,3 +87,9 @@ class AppMenu extends Component {
 }
 
 export default AppMenu;
+
+AppMenu.propTypes = {
+  venues: PropTypes.array.isRequired,
+  markers: PropTypes.array.isRequired,
+  updateSuperState: PropTypes.func.isRequired
+}
