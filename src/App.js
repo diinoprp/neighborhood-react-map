@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import Map from './component/Map';
 import './App.scss';
 import SquareAPI from './API/';
-import SideBar from './component/SideBar';
+import AppMenu from './component/AppMenu';
+import ErrorBoundary from 'react-error-boundary';
+
+
+const FallbackComponent = ({ componentStack, error }) => (
+  <div>
+    <p><strong>Oops! An error occured!</strong></p>
+  </div>
+);
 
 class App extends Component {
   constructor() {
@@ -27,17 +35,17 @@ class App extends Component {
   handleMarkerClick = (marker) => {
     this.closeAllMarkers();
     marker.isOpen = true;
-    this.setState({markers: Object.assign(this.state.markers, marker)});
+    this.setState({ markers: Object.assign(this.state.markers, marker) });
 
     const venue = this.state.venues.find(venue => venue.id === marker.id);
 
     SquareAPI.getVenueDetails(marker.id).then(res => {
-        const newVenue = Object.assign(venue, res.response.venue);
-        this.setState({venues: Object.assign(this.state.venues, newVenue) });
+      const newVenue = Object.assign(venue, res.response.venue);
+      this.setState({ venues: Object.assign(this.state.venues, newVenue) });
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     SquareAPI.search({
       near: "New York",
       query: "Museum",
@@ -54,17 +62,19 @@ class App extends Component {
           id: venue.id
         };
       });
-      this.setState({venues, center, markers})
+      this.setState({ venues, center, markers })
     })
   }
 
   render() {
     return (
-      <div className="App">
-        <SideBar />
-        <Map {...this.state}
-          handleMarkerClick={this.handleMarkerClick}/>
-      </div>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <div className="App">
+          <AppMenu {...this.state}/>
+          <Map {...this.state}
+          handleMarkerClick={this.handleMarkerClick} />
+        </div>
+      </ErrorBoundary>
     );
   }
 }
