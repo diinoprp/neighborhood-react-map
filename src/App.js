@@ -1,3 +1,4 @@
+/* global google */
 import React, { Component } from 'react';
 import Map from './component/Map';
 import './App.scss';
@@ -21,6 +22,7 @@ class App extends Component {
       markers: [],
       center: [],
       zoom: 12,
+      activeMarker: {},
       updateSuperState: obj => {
         this.setState(obj);
       }
@@ -30,6 +32,7 @@ class App extends Component {
   closeAllMarkers = () => {
     const markers = this.state.markers.map(marker => {
       marker.isOpen = false;
+      this.setState({activeMarker: null})
       return marker;
     })
     this.setState({ markers: Object.assign(this.state.markers, markers) });
@@ -38,6 +41,7 @@ class App extends Component {
   handleMarkerClick = (marker) => {
     this.closeAllMarkers();
     marker.isOpen = true;
+    this.setState({activeMarker: marker});
     this.setState({ markers: Object.assign(this.state.markers, marker) });
 
     const venue = this.state.venues.find(venue => venue.id === marker.id);
@@ -48,9 +52,20 @@ class App extends Component {
     });
   }
 
+  onMapClicked = () => {
+    if(this.state.activeMarker) {
+      this.setState({activeMarker: null});
+      this.closeAllMarkers();
+    }
+  }
+
   handleListItemClick = venue => {
     const marker = this.state.markers.find(marker => marker.id === venue.id);
     this.handleMarkerClick(marker);
+  }
+
+  onInfoWindowClosed = () => {
+    this.setState({activeMarker: null});
   }
 
   componentDidMount() {
@@ -80,7 +95,10 @@ class App extends Component {
         <div className="App">
           <AppMenu {...this.state} handleListItemClick={this.handleListItemClick}/>
           <Map {...this.state}
-          handleMarkerClick={this.handleMarkerClick} />
+            handleMarkerClick={this.handleMarkerClick} 
+            onMapClick={this.onMapClicked}
+            onInfoWindowClose={this.onInfoWindowClosed}
+          />
         </div>
       </ErrorBoundary>
     );

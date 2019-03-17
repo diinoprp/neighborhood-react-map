@@ -10,6 +10,7 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
     zoom={props.zoom}
     defaultCenter={{ lat: -34.397, lng: 150.644 }}
     center={props.center}
+    onClick={() => props.onMapClick()}
   >
     {props.markers &&
       props.markers.filter(marker => marker.isVisible).map((marker, index, arr) => {
@@ -19,10 +20,10 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
             key={index}
             position={{ lat: marker.lat, lng: marker.lng }}
             onClick={() => props.handleMarkerClick(marker)}
-            animation={arr.length === 1 ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP}
+            animation={props.activeMarker ? (marker.id === props.activeMarker.id ? google.maps.Animation.BOUNCE : '0'): '0'}
           >
             {marker.isOpen && (
-              <InfoWindow>
+              <InfoWindow onCloseClick={() => props.onInfoWindowClose()}>
                 <React.Fragment>
                   <h3>{venueInfo.name}</h3>
 

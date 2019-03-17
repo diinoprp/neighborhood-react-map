@@ -51,7 +51,7 @@ class AppMenu extends Component {
   render() {
     return (
       <div>
-        <Menu className="venueList" isOpen={this.state.menuOpen}>
+        <Menu className="venueList" isOpen={this.state.menuOpen} noOverlay>
           <input
             type={"search"}
             className={"searchInput"}
