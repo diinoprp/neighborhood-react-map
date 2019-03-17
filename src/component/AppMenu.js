@@ -5,6 +5,9 @@ import { HamburgerButton } from 'react-hamburger-button';
 import VenueList from './VenueList';
 
 class AppMenu extends Component {
+  /*
+    Component for the menu, including top navBar and SideBar
+  */
   constructor(props) {
     super(props);
 
@@ -19,6 +22,7 @@ class AppMenu extends Component {
     this.setState({ menuOpen: !this.state.menuOpen })
   }
 
+  // Filter venues based on the Search Venues Input value
   handleFilterVenues = () => {
     if (this.state.query.trim() !== "") {
       const venues = this.props.venues.filter(venue =>
@@ -30,6 +34,7 @@ class AppMenu extends Component {
     return this.props.venues;
   };
 
+  // Handle changes in the Search venues input field
   handleChange = e => {
     this.setState({ query: e.target.value });
 

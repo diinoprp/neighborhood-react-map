@@ -68,6 +68,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Foursquare API Request
     SquareAPI.search({
       near: "Rio de Janeiro",
       query: "Museum",

@@ -8,31 +8,38 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={8}
     zoom={props.zoom}
-    center={{lat: parseFloat(props.center.lat), lng: parseFloat(props.center.lng)}}
+    center={{ lat: parseFloat(props.center.lat), lng: parseFloat(props.center.lng) }}
     onClick={() => props.onMapClick()}
   >
     {props.markers &&
-      props.markers.filter(marker => marker.isVisible).map((marker, index, arr) => {
+      props.markers.filter(marker => marker.isVisible).map((marker, index) => {
+        //Shows only visible markers
         const venueInfo = props.venues.find(venue => venue.id === marker.id)
         return (
           <Marker
             key={index}
             position={{ lat: marker.lat, lng: marker.lng }}
             onClick={() => props.handleMarkerClick(marker)}
-            animation={props.activeMarker ? (marker.id === props.activeMarker.id ? google.maps.Animation.BOUNCE : '0'): '0'}
+            animation={props.activeMarker ?
+              (marker.id === props.activeMarker.id ?
+                google.maps.Animation.BOUNCE : '0'
+              ) : '0'} // Adds Bounce animation if it's the active marker
           >
-            {marker.isOpen && (
+            { //Shows InfoWindow if the marker is Opened
+              marker.isOpen && (
               <InfoWindow onCloseClick={() => props.onInfoWindowClose()}>
                 <React.Fragment>
                   <h3>{venueInfo.name}</h3>
 
-                  {venueInfo.bestPhoto && (
+                  {// If avaiable, shows the venue Picture
+                    venueInfo.bestPhoto && (
                     <Image
                       src={`${venueInfo.bestPhoto.prefix}250x250${venueInfo.bestPhoto.suffix}`}
                       alt={venueInfo.name}
                     />)}
 
-                  {venueInfo.rating &&
+                  {// If avaiable, shows the venue Rating
+                    venueInfo.rating &&
                     <h4>Nota:
                       <span style={{ color: `#${venueInfo.ratingColor}` }}>
                         {venueInfo.rating}
@@ -40,6 +47,7 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
                     </h4>
                   }
                   <p>{venueInfo.description}</p>
+                  {/* Foursquare API Copyright */}
                   <Image
                     src={poweredByFourSquare}
                     alt="Powered by FourSquare"
